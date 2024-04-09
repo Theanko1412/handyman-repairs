@@ -19,7 +19,6 @@ data class Country(
     val id: String,
     @Column(name = "name")
     val name: String,
-
     @OneToMany(mappedBy = "country", cascade = [CascadeType.REMOVE])
     @Column(name = "cities")
     val cities: List<City>,

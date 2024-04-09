@@ -25,5 +25,5 @@ data class City(
     @JoinColumn(name = "country_id", nullable = false)
     val country: Country,
     @OneToMany(mappedBy = "city", cascade = [CascadeType.REMOVE])
-    val streets: List<Street>
+    val streets: List<Street>,
 )

@@ -32,23 +32,19 @@ data class Handyman(
     val rating: Double,
     @Column(name = "is_suspended")
     val isSuspended: Boolean,
-
     @ManyToOne
     @JoinColumn(name = "homeOrWorkshop_id")
     val homeOrWorkshop: HomeOrWorkshop,
-
     @OneToMany(mappedBy = "handyman", cascade = [CascadeType.REMOVE])
     @Column(name = "notifications")
     val notifications: List<Notification>,
-
     @ManyToMany
     @JoinTable(
         name = "handyman_services",
         joinColumns = [JoinColumn(name = "handyman_id")],
-        inverseJoinColumns = [JoinColumn(name = "service_id")]
+        inverseJoinColumns = [JoinColumn(name = "service_id")],
     )
     val services: List<Service>,
-
     @OneToOne(mappedBy = "handyman")
     val schedule: Schedule,
 )

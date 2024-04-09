@@ -20,8 +20,7 @@ data class Category(
     val name: String,
     @Column(name = "description")
     val description: String,
-
     @OneToMany(mappedBy = "category")
     @Column(name = "services")
-    val services: List<Service>
+    val services: List<Service>,
 )

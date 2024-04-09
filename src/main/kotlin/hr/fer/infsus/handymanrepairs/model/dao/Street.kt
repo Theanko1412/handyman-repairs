@@ -23,8 +23,7 @@ data class Street(
     @ManyToOne
     @JoinColumn(name = "city_id", nullable = false)
     val city: City,
-
     @OneToMany(mappedBy = "street")
     @Column(name = "homeOrWorkshops")
-    val homeOrWorkshops: List<HomeOrWorkshop>
+    val homeOrWorkshops: List<HomeOrWorkshop>,
 )

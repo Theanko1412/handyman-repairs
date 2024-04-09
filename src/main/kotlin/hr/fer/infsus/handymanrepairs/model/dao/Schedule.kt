@@ -19,11 +19,9 @@ data class Schedule(
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "schedule_id")
     val id: String,
-
     @OneToOne
     @JoinColumn(name = "handyman_id")
     val handyman: Handyman,
-
     @OneToMany(mappedBy = "schedule", cascade = [CascadeType.REMOVE])
     @Column(name = "reservations")
     val reservations: List<Reservation>,

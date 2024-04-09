@@ -7,5 +7,4 @@ interface HomeOrWorkshopRepository : JpaRepository<HomeOrWorkshop, String> {
     fun findHomeOrWorkshopById(id: String): HomeOrWorkshop?
 
     fun deleteHomeOrWorkshopById(id: String)
-
 }

@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface ScheduleRepository : JpaRepository<Schedule, String> {
     fun findScheduleById(id: String): Schedule?
+
     fun findSchedulesByHandymanId(handymanId: String): List<Schedule>
 
     fun deleteScheduleById(id: String)
-
 }

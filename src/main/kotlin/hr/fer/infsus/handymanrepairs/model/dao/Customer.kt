@@ -29,11 +29,9 @@ data class Customer(
     val strikes: Int,
     @Column(name = "is_suspended")
     val isSuspended: Boolean,
-
     @ManyToOne
     @JoinColumn(name = "homeOrWorkshop_id")
     val homeOrWorkshop: HomeOrWorkshop,
-
     @OneToMany(mappedBy = "customer", cascade = [CascadeType.REMOVE])
     @Column(name = "notifications")
     val notifications: List<Notification>,

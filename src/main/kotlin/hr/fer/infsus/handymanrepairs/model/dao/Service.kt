@@ -32,16 +32,14 @@ data class Service(
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     val category: Category,
-
     @ManyToMany
     @JoinTable(
         name = "handyman_services",
         joinColumns = [JoinColumn(name = "service_id")],
-        inverseJoinColumns = [JoinColumn(name = "handyman_id")]
+        inverseJoinColumns = [JoinColumn(name = "handyman_id")],
     )
     val handymans: List<Handyman>,
-
     @OneToMany(mappedBy = "service", cascade = [CascadeType.REMOVE])
     @Column(name = "reservations")
-    val reservations: List<Reservation>
+    val reservations: List<Reservation>,
 )
