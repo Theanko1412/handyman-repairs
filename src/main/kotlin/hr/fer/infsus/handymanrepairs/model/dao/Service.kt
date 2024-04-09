@@ -35,7 +35,7 @@ data class Service(
 
     @ManyToMany
     @JoinTable(
-        name = "service_handymans",
+        name = "handyman_services",
         joinColumns = [JoinColumn(name = "service_id")],
         inverseJoinColumns = [JoinColumn(name = "handyman_id")]
     )

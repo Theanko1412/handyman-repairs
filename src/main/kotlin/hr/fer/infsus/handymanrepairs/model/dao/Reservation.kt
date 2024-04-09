@@ -1,11 +1,13 @@
 package hr.fer.infsus.handymanrepairs.model.dao
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
+import java.time.OffsetDateTime
 import org.hibernate.annotations.GenericGenerator
 
 @Entity
@@ -23,4 +25,7 @@ data class Reservation(
     @ManyToOne
     @JoinColumn(name = "service_id", nullable = false)
     val service: Service,
+
+    @Column(name = "date")
+    val dateTime: OffsetDateTime,
 )

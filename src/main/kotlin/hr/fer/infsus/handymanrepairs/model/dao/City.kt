@@ -12,7 +12,7 @@ import jakarta.persistence.Table
 import org.hibernate.annotations.GenericGenerator
 
 @Entity
-@Table(name = "town")
+@Table(name = "city")
 data class City(
     @Id
     @GeneratedValue(generator = "uuid")
