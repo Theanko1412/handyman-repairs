@@ -16,7 +16,12 @@ data class Reservation(
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-    val id: String,
+    var id: String? = null,
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    val customer: Customer,
+    @Column(name = "status")
+    var status: Status = Status.PENDING,
     @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)
     val schedule: Schedule,
@@ -26,3 +31,10 @@ data class Reservation(
     @Column(name = "date")
     val dateTime: OffsetDateTime,
 )
+
+enum class Status {
+    PENDING,
+    ACCEPTED,
+    REJECTED,
+    COMPLETED,
+}

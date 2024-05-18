@@ -18,7 +18,7 @@ data class Customer(
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "customer_id")
-    val id: String,
+    var id: String? = null,
     @Column(name = "first_name")
     val firstName: String,
     @Column(name = "last_name")
@@ -35,4 +35,7 @@ data class Customer(
     @OneToMany(mappedBy = "customer", cascade = [CascadeType.REMOVE])
     @Column(name = "notifications")
     val notifications: List<Notification>,
+    @OneToMany(mappedBy = "customer", cascade = [CascadeType.REMOVE])
+    @Column(name = "reservations")
+    val reservations: List<Reservation>,
 )

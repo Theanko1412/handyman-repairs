@@ -10,13 +10,13 @@ import jakarta.persistence.Table
 import org.hibernate.annotations.GenericGenerator
 
 @Entity
-@Table(name = "homeOrWorkshop")
+@Table(name = "home_or_workshop")
 data class HomeOrWorkshop(
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "homeOrWorkshop_id")
-    val id: String,
+    var id: String? = null,
     @ManyToOne
     @JoinColumn(name = "street_id", nullable = false)
     val street: Street,

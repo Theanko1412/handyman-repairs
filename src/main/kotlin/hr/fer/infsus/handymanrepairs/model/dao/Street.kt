@@ -17,7 +17,7 @@ data class Street(
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "street_id")
-    val id: String,
+    var id: String? = null,
     @Column(name = "name")
     val name: String,
     @ManyToOne

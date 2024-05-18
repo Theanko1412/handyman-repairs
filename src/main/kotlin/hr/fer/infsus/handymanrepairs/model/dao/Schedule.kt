@@ -18,7 +18,7 @@ data class Schedule(
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "schedule_id")
-    val id: String,
+    var id: String? = null,
     @OneToOne
     @JoinColumn(name = "handyman_id")
     val handyman: Handyman,

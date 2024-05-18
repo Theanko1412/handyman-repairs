@@ -15,7 +15,7 @@ data class Category(
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "category_id")
-    val id: String,
+    var id: String? = null,
     @Column(name = "name")
     val name: String,
     @Column(name = "description")

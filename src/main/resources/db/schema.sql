@@ -36,7 +36,9 @@ create table service (
   description character varying(255),
   name character varying(255),
   service_id character varying(255) primary key not null,
-  foreign key (category_id) references category (category_id)
+  handyman_id character varying(255),
+  foreign key (category_id) references category (category_id),
+  foreign key (handyman_id) references handyman (handyman_id)
 );
 
 create table customer (
@@ -61,13 +63,6 @@ create table handyman (
   foreign key (home_or_workshop_id) references home_or_workshop (home_or_workshop_id)
 );
 
-create table handyman_services (
-  handyman_id character varying(255) not null,
-  service_id character varying(255) not null,
-  foreign key (service_id) references service (service_id),
-  foreign key (handyman_id) references handyman (handyman_id)
-);
-
 create table notification (
   date timestamp(6) with time zone,
   customer_id character varying(255),
@@ -90,6 +85,9 @@ create table reservation (
   id character varying(255) primary key not null,
   schedule_id character varying(255) not null,
   service_id character varying(255) not null,
+  customer_id character varying(255) not null,
+  status character varying(255) NOT NULL,
+  foreign key (customer_id) references customer (customer_id),
   foreign key (service_id) references service (service_id),
   foreign key (schedule_id) references schedule (schedule_id)
 );

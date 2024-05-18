@@ -9,6 +9,7 @@ plugins {
 	kotlin("plugin.jpa") version "1.9.23"
 	//manual
 	id("com.diffplug.spotless") version "6.25.0"
+	id("org.jetbrains.kotlinx.kover") version "0.8.0"
 }
 
 group = "hr.fer.infsus"
@@ -25,13 +26,14 @@ repositories {
 dependencies {
 	//default
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-data-rest")
+//	implementation("org.springframework.boot:spring-boot-starter-data-rest")
 //	implementation("org.springframework.boot:spring-boot-starter-security") temp disabled
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 //	implementation("org.liquibase:liquibase-core") temp disabled
 	//manual
+	implementation("org.jetbrains.kotlinx:kover-gradle-plugin:0.8.0")
 
 	//default
 	runtimeOnly("org.postgresql:postgresql")

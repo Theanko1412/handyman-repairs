@@ -17,7 +17,7 @@ data class Notification(
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "notification_id")
-    val id: String,
+    var id: String? = null,
     @Column(name = "message")
     val message: String,
     @Column(name = "date")
