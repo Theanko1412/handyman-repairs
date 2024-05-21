@@ -11,6 +11,9 @@ import jakarta.persistence.OneToMany
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 import org.hibernate.annotations.GenericGenerator
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 
 @Entity
 @Table(name = "handyman")
@@ -26,6 +29,10 @@ data class Handyman(
     val lastName: String,
     @Column(name = "email")
     val email: String,
+    @Column(name = "password")
+    var handymanPassword: String? = null,
+    @Column(name = "type")
+    val type: CustomerType = CustomerType.HANDYMAN,
     @Column(name = "rating")
     val rating: Double,
     @Column(name = "is_suspended")
@@ -39,5 +46,33 @@ data class Handyman(
     @OneToMany(mappedBy = "handyman", cascade = [CascadeType.REMOVE])
     val services: List<Service>,
     @OneToOne(mappedBy = "handyman")
-    val schedule: Schedule,
-)
+    var schedule: Schedule? = null,
+) : UserDetails {
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+        return mutableListOf(SimpleGrantedAuthority("ROLE_HANDYMAN"))
+    }
+
+    override fun getPassword(): String {
+        return handymanPassword!!
+    }
+
+    override fun getUsername(): String {
+        return email
+    }
+
+    override fun isAccountNonExpired(): Boolean {
+        return !isSuspended
+    }
+
+    override fun isAccountNonLocked(): Boolean {
+        return !isSuspended
+    }
+
+    override fun isCredentialsNonExpired(): Boolean {
+        return !isSuspended
+    }
+
+    override fun isEnabled(): Boolean {
+        return !isSuspended
+    }
+}

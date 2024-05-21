@@ -24,7 +24,7 @@ data class Service(
     @Column(name = "description")
     var description: String,
     @Column(name = "price")
-    var price: Double,
+    var price: Int,
     @Column(name = "duration")
     var duration: Int,
     @ManyToOne

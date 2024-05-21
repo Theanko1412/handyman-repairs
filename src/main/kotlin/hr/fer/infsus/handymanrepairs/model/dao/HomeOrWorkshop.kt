@@ -17,6 +17,8 @@ data class HomeOrWorkshop(
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "homeOrWorkshop_id")
     var id: String? = null,
+    @Column(name = "name")
+    val name: String,
     @ManyToOne
     @JoinColumn(name = "street_id", nullable = false)
     val street: Street,

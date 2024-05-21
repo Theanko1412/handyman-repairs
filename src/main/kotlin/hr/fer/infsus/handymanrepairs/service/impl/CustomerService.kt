@@ -18,4 +18,12 @@ class CustomerService(
     override fun getAllCustomers(): List<Customer> {
         return customerRepository.findAll()
     }
+
+    override fun addCustomer(customer: Customer): Customer {
+        return customerRepository.save(customer)
+    }
+
+    override fun getCustomerByEmail(email: String): Customer? {
+        return customerRepository.findCustomerByEmail(email)
+    }
 }

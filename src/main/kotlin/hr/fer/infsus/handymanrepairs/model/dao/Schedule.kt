@@ -21,7 +21,7 @@ data class Schedule(
     var id: String? = null,
     @OneToOne
     @JoinColumn(name = "handyman_id")
-    val handyman: Handyman,
+    var handyman: Handyman? = null,
     @OneToMany(mappedBy = "schedule", cascade = [CascadeType.REMOVE])
     @Column(name = "reservations")
     val reservations: List<Reservation>,

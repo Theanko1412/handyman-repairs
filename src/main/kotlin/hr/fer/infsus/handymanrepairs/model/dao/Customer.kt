@@ -10,6 +10,9 @@ import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import org.hibernate.annotations.GenericGenerator
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 
 @Entity
 @Table(name = "customer")
@@ -25,6 +28,10 @@ data class Customer(
     val lastName: String,
     @Column(name = "email")
     val email: String,
+    @Column(name = "password")
+    var customerPassword: String? = null,
+    @Column(name = "type")
+    val type: CustomerType = CustomerType.CUSTOMER,
     @Column(name = "strikes")
     val strikes: Int,
     @Column(name = "is_suspended")
@@ -38,4 +45,42 @@ data class Customer(
     @OneToMany(mappedBy = "customer", cascade = [CascadeType.REMOVE])
     @Column(name = "reservations")
     val reservations: List<Reservation>,
-)
+) : UserDetails {
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+        return mutableListOf(SimpleGrantedAuthority("ROLE_CUSTOMER"))
+    }
+
+    override fun getPassword(): String {
+        return customerPassword!!
+    }
+
+    override fun getUsername(): String {
+        return email
+    }
+
+    override fun isAccountNonExpired(): Boolean {
+        return !isSuspended
+    }
+
+    override fun isAccountNonLocked(): Boolean {
+        return strikes < 5
+    }
+
+    override fun isCredentialsNonExpired(): Boolean {
+        return true
+    }
+
+    override fun isEnabled(): Boolean {
+        return !isSuspended
+    }
+
+    override fun toString(): String {
+        return "Customer(id=$id, firstName='$firstName', lastName='$lastName', email='$email', " +
+            "strikes=$strikes, isSuspended=$isSuspended, homeOrWorkshop=${homeOrWorkshop.street})"
+    }
+}
+
+enum class CustomerType {
+    CUSTOMER,
+    HANDYMAN,
+}

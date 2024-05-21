@@ -24,6 +24,9 @@ class HandymanController(
     fun getHandyman(
         @PathVariable id: String,
     ): HandymanDTO? {
-        return handymanService.getHandymanById(id)?.toDTO()
+        if (id.contains("@")) {
+            return handymanService.getHandymanByEmail(id)?.toDTO()
+        }
+        return handymanService.getHandymanById(id)?.toDTO() ?: throw IllegalArgumentException("Handyman with id $id does not exist")
     }
 }

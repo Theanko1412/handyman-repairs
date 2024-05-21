@@ -13,6 +13,7 @@ create table city (
 create table street (
   city_id character varying(255) not null,
   name character varying(255),
+  number integer,
   street_id character varying(255) primary key not null,
   foreign key (city_id) references city (town_id)
 );

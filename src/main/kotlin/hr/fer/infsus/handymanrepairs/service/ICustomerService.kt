@@ -6,4 +6,8 @@ interface ICustomerService {
     fun getCustomerById(id: String): Customer?
 
     fun getAllCustomers(): List<Customer>
+
+    fun addCustomer(customer: Customer): Customer
+
+    fun getCustomerByEmail(email: String): Customer?
 }

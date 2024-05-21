@@ -1,6 +1,7 @@
 package hr.fer.infsus.handymanrepairs.model.dto
 
 import hr.fer.infsus.handymanrepairs.model.dao.Customer
+import hr.fer.infsus.handymanrepairs.model.dao.CustomerType
 import hr.fer.infsus.handymanrepairs.model.dao.HomeOrWorkshop
 import hr.fer.infsus.handymanrepairs.model.dao.Notification
 import hr.fer.infsus.handymanrepairs.model.dao.Reservation
@@ -10,11 +11,13 @@ data class CustomerDTO(
     val firstName: String,
     val lastName: String,
     val email: String,
-    val strikes: Int,
-    val isSuspended: Boolean,
+    val password: String,
+    val type: String = "CUSTOMER",
+    val strikes: Int = 0,
+    val isSuspended: Boolean = false,
     val homeOrWorkshopId: String,
-    val notificationIds: List<String>,
-    val reservationIds: List<String>,
+    val notificationIds: List<String> = emptyList(),
+    val reservationIds: List<String> = emptyList(),
 )
 
 fun Customer.toDTO() =
@@ -23,11 +26,13 @@ fun Customer.toDTO() =
         firstName = this.firstName,
         lastName = this.lastName,
         email = this.email,
+        type = this.type.name,
         strikes = this.strikes,
         isSuspended = this.isSuspended,
         homeOrWorkshopId = this.homeOrWorkshop.id!!,
         notificationIds = this.notifications.map { it.id!! },
         reservationIds = this.reservations.map { it.id!! },
+        password = "***",
     )
 
 fun CustomerDTO.toDAO(
@@ -39,9 +44,11 @@ fun CustomerDTO.toDAO(
     firstName = this.firstName,
     lastName = this.lastName,
     email = this.email,
+    type = CustomerType.CUSTOMER,
     strikes = this.strikes,
     isSuspended = this.isSuspended,
     homeOrWorkshop = homeOrWorkshop,
     notifications = notifications,
     reservations = reservations,
+    customerPassword = this.password,
 )

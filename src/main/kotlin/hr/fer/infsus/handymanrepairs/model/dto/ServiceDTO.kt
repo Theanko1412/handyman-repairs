@@ -9,7 +9,7 @@ data class ServiceDTO(
     var id: String? = null,
     var name: String,
     var description: String,
-    var price: Double,
+    var price: Int,
     var duration: Int,
     var categoryId: String,
     var handymanId: String,

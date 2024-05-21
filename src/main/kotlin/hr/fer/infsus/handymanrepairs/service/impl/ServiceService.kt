@@ -53,7 +53,7 @@ class ServiceService(
             when (key) {
                 "name" -> oldService.name = value as String
                 "description" -> oldService.description = value as String
-                "price" -> oldService.price = value as Double
+                "price" -> oldService.price = value as Int
                 "duration" -> oldService.duration = value as Int
                 "categoryId" -> {
                     val category = categoryService.getCategoryById(value as String)
@@ -71,5 +71,11 @@ class ServiceService(
 
     override fun getServicesByCategoryId(id: String): List<Service> {
         return serviceRepository.findServicesByCategoryId(id)
+    }
+
+    override fun deleteServiceById(id: String) {
+        val service = serviceRepository.findServiceById(id)
+        require(service != null) { "Service with id $id does not exist" }
+        serviceRepository.delete(service)
     }
 }

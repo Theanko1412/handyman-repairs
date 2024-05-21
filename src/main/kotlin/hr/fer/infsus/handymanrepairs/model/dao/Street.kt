@@ -20,10 +20,16 @@ data class Street(
     var id: String? = null,
     @Column(name = "name")
     val name: String,
+    @Column(name = "number")
+    val number: Int,
     @ManyToOne
     @JoinColumn(name = "city_id", nullable = false)
     val city: City,
     @OneToMany(mappedBy = "street")
     @Column(name = "homeOrWorkshops")
     val homeOrWorkshops: List<HomeOrWorkshop>,
-)
+) {
+    override fun toString(): String {
+        return "Street(id=$id, name='$name', number=$number, city=${city.name})"
+    }
+}

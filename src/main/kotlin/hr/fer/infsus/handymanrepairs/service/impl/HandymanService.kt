@@ -18,4 +18,12 @@ class HandymanService(
     override fun getAllHandymen(): List<Handyman> {
         return handymanRepository.findAll()
     }
+
+    override fun addHandyman(handymen: Handyman): Handyman {
+        return handymanRepository.save(handymen)
+    }
+
+    override fun getHandymanByEmail(email: String): Handyman? {
+        return handymanRepository.findHandymanByEmail(email)
+    }
 }

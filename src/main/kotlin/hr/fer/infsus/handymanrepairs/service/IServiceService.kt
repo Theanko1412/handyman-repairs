@@ -18,4 +18,6 @@ interface IServiceService {
     fun getServicesByHandymanId(id: String): List<Service>
 
     fun getServicesByCategoryId(id: String): List<Service>
+
+    fun deleteServiceById(id: String)
 }

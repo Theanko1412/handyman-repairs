@@ -6,14 +6,14 @@ import hr.fer.infsus.handymanrepairs.model.dao.Schedule
 
 data class ScheduleDTO(
     var id: String? = null,
-    val handymanId: String,
+    val handymanId: String? = null,
     val reservationIds: List<String>,
 )
 
 fun Schedule.toDTO() =
     ScheduleDTO(
         id = this.id,
-        handymanId = this.handyman.id!!,
+        handymanId = this.handyman?.id!!,
         reservationIds = this.reservations.map { it.id!! },
     )
 

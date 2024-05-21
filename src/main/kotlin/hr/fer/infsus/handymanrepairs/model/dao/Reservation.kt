@@ -37,4 +37,5 @@ enum class Status {
     ACCEPTED,
     REJECTED,
     COMPLETED,
+    CANCELLED,
 }

@@ -22,4 +22,8 @@ data class Country(
     @OneToMany(mappedBy = "country", cascade = [CascadeType.REMOVE])
     @Column(name = "cities")
     val cities: List<City>,
-)
+) {
+    override fun toString(): String {
+        return "Country(id=$id, name='$name')"
+    }
+}

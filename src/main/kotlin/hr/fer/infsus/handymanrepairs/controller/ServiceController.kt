@@ -4,6 +4,8 @@ import hr.fer.infsus.handymanrepairs.model.dto.ServiceDTO
 import hr.fer.infsus.handymanrepairs.model.dto.toDTO
 import hr.fer.infsus.handymanrepairs.service.IServiceService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -54,5 +56,13 @@ class ServiceController(
         @RequestBody patches: Map<String, Any>,
     ): ServiceDTO {
         return serviceService.updateServiceById(id, patches).toDTO()
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteService(
+        @PathVariable id: String,
+    ): ResponseEntity<String> {
+        serviceService.deleteServiceById(id)
+        return ResponseEntity.ok("Service with id $id deleted successfully")
     }
 }
