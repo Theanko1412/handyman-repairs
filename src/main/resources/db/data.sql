@@ -25,7 +25,17 @@ VALUES
   ('0f1d1f9e-98f2-46ed-a26e-014960fb81ac', 'Hauptstraße', 323, 'd6e7a758-6e29-4b62-8fa1-eef9cc344b85'),
   ('0f1d1f9e-98f2-46ed-a26e-014960fb81ac', 'Königsallee', 3, '37dcc8d8-5bfd-487a-a55b-6fb519434c13'),
   ('b510d0e8-2c1b-4260-b85e-27d7e09e1662', 'Collins Street', 298, 'ff7080ee-ba43-44ec-9d76-16600bf1226a'),
-  ('b510d0e8-2c1b-4260-b85e-27d7e09e1662', 'Mapple Street', 222, 'eec53308-940f-4b43-9e05-52d3b792b370');
+  ('b510d0e8-2c1b-4260-b85e-27d7e09e1662', 'Mapple Street', 222, 'eec53308-940f-4b43-9e05-52d3b792b370'),
+  ('e5c0fc6e-79cf-4e6b-a8a6-500b28e2ed59', 'Wall Street', 15, 'a7f9d8e4-3c74-4e85-bc6e-d2e9c4143e7d'),
+  ('d2cb5f34-8fe7-4e45-ba5c-b9d5dcd3d378', 'Sunset Boulevard', 101, 'c3b92d7a-9f92-4fd7-a6b4-7f52b5f5c8a0'),
+  ('b510d0e8-2c1b-4260-b85e-27d7e09e1662', 'Oxford Street', 12, 'ec3bd5f9-1e9f-45d2-bf8b-87b6c6b48f9b'),
+  ('8b69b6e4-6d39-4c2d-9e6b-4d2a7f11b18e', 'Pitt Street', 42, '9a1c6d2a-57d8-4f61-8345-ef14b8d5fbc4'),
+  ('0f1d1f9e-98f2-46ed-a26e-014960fb81ac', 'Unter den Linden', 118, '3b9d7f27-649a-47fa-b5c4-d9e6a4c37d24'),
+  ('e5c0fc6e-79cf-4e6b-a8a6-500b28e2ed59', 'Fifth Avenue', 23, '7b2e6d8a-9843-4e3a-8d8e-0d0c4f8b3e1c'),
+  ('d2cb5f34-8fe7-4e45-ba5c-b9d5dcd3d378', 'Melrose Avenue', 78, 'bb4d5e1f-2f3d-478a-8b5a-c8f7a8e5d4f5'),
+  ('b510d0e8-2c1b-4260-b85e-27d7e09e1662', 'Regent Street', 6, 'e4b1d9a9-9f7b-4a1e-8e1f-6f1b7b9e8a6f'),
+  ('8b69b6e4-6d39-4c2d-9e6b-4d2a7f11b18e', 'George Street', 55, '2d6c5a4b-4e1e-43e9-a2b6-5e8b8f7a3d6e'),
+  ('0f1d1f9e-98f2-46ed-a26e-014960fb81ac', 'Kurfürstendamm', 89, '6c5f3e2a-4e7b-4a6e-b1e2-8d4c9a3e6f7d');
 
 INSERT INTO home_or_workshop (home_or_workshop_id, name, street_id)
 VALUES
@@ -33,6 +43,11 @@ VALUES
   ('d4edcd84-c44a-4749-b76e-0b99b3965fc2','John and Jane', 'b0e26fe7-25d5-42a6-82e9-743a5a4aa45b'),
   ('716f50b9-6a3e-4f0c-b564-40ff81d3fe1a','Johnsons', 'fb3049a1-721b-42ee-9952-22f498c5c9b0'),
   ('3f4b12ef-95a6-40dc-8489-82e4bcb8c197','Brown-Williams', '8d99a6c7-60ee-4d2e-b2ff-88eb9d3e4340'),
+  ('a1b2c3d4-e5f6-47b8-9c10-d11e12f13g14', 'Smiths', 'a7f9d8e4-3c74-4e85-bc6e-d2e9c4143e7d'),
+  ('b1c2d3e4-f5g6-48h9-i10j-11k12l13m14n', 'Doe Family', 'c3b92d7a-9f92-4fd7-a6b4-7f52b5f5c8a0'),
+  ('c1d2e3f4-g5h6-49i10-j11k12-l13m14n15o', 'Williams', 'ec3bd5f9-1e9f-45d2-bf8b-87b6c6b48f9b'),
+  ('d1e2f3g4-h5i6-410j11-k12l13-m14n15o16p', 'Jacksons', '9a1c6d2a-57d8-4f61-8345-ef14b8d5fbc4'),
+  ('e1f2g3h4-i5j6-411k12-l13m14-n15o16p17q', 'Müller', '3b9d7f27-649a-47fa-b5c4-d9e6a4c37d24'),
 -- workshops
   ('7f5e93d8-ec35-4aa0-bbc7-b72987b36870','All In One Workshop', '03c76f2d-59fc-49d3-93b1-7276e0d1de6c'),
   ('b1ae55b3-6074-4ad2-9b69-5b1ae55b33c8','Fast Workshop', '6e88f743-47ed-403e-b586-19f0ecdf5b86'),
@@ -44,21 +59,27 @@ VALUES
   ('f6a8b2c3-2c7d-4e5b-9f3c-4d5e6f7a8b9c','Metalworks Shop', '03c76f2d-59fc-49d3-93b1-7276e0d1de6c'),
   ('07b9c3d4-3d8e-4f6b-9f4d-5e6f7a8b9c0d','Electronics Repair', '6e88f743-47ed-403e-b586-19f0ecdf5b86'),
   ('18c0d4e5-4e9f-5f7b-9f5e-6f7a8b9c0d1e','Custom Carpentry', '03d5df57-5d1d-4177-a64c-c372702d6a32'),
-  ('29d1e5f6-5f0a-6f8b-9f6f-7a8b9c0d1e2f','Bike Repair Station', 'd6e7a758-6e29-4b62-8fa1-eef9cc344b85');
+  ('29d1e5f6-5f0a-6f8b-9f6f-7a8b9c0d1e2f','Bike Repair Station', 'd6e7a758-6e29-4b62-8fa1-eef9cc344b85'),
+  ('f1g2h3i4-j5k6-412l13-m14n15-o16p17q18r', 'Tech Repair Shop', '7b2e6d8a-9843-4e3a-8d8e-0d0c4f8b3e1c'),
+  ('g1h2i3j4-k5l6-413m14-n15o16-p17q18r19s', 'Flower Shop', 'bb4d5e1f-2f3d-478a-8b5a-c8f7a8e5d4f5'),
+  ('h1i2j3k4-l5m6-414n15-o16p17-q18r19s20t', 'Bakery', 'e4b1d9a9-9f7b-4a1e-8e1f-6f1b7b9e8a6f'),
+  ('i1j2k3l4-m5n6-415o16-p17q18-r19s20t21u', 'Car Repair Shop', '2d6c5a4b-4e1e-43e9-a2b6-5e8b8f7a3d6e'),
+  ('j1k2l3m4-n5o6-416p17-q18r19-s20t21u22v', 'Bookstore', '6c5f3e2a-4e7b-4a6e-b1e2-8d4c9a3e6f7d');
 
 
 INSERT INTO category (category_id, description, name)
 VALUES
-  ('e5f57f20-89a7-4a95-9a10-9db4a4c27925', 'Electrical services', 'Electrical'),
-  ('36dc6141-8ad1-47f5-b1f0-8c70bbcf65b1', 'Plumbing services', 'Plumbing'),
-  ('6f069ab3-f20d-41b7-9cfd-cb108f8d21aa', 'Carpentry services', 'Carpentry'),
-  ('94889e82-82c0-459d-93c4-57d4f221f251', 'Cleaning services', 'Cleaning'),
-  ('48b6a52a-7b67-4428-9f63-0e4d4ec1693c', 'Painting services', 'Painting'),
-  ('d1f01f57-4af0-48d8-92a6-5f74c1b6dbe1', 'HVAC services', 'HVAC'),
-  ('b9e07d25-5c1a-42f5-94d3-1c0a7b4f71da', 'Landscaping services', 'Landscaping'),
-  ('c4bfa26a-d8d7-4b9d-81b8-1b7e7a71a1ec', 'Roofing services', 'Roofing'),
-  ('a0f7d68b-4e95-4815-9358-6b4d4e4e67e4', 'Pest control services', 'Pest Control'),
-  ('f2b8f1e4-3d9f-4a7d-8a7d-9d7e7a8d7f8d', 'Moving services', 'Moving');
+  ('e5f57f20-89a7-4a95-9a10-9db4a4c27925', 'Professional electrical installations and repairs', 'Electrical'),
+  ('36dc6141-8ad1-47f5-b1f0-8c70bbcf65b1', 'Expert plumbing solutions and maintenance', 'Plumbing'),
+  ('6f069ab3-f20d-41b7-9cfd-cb108f8d21aa', 'Quality carpentry and woodwork services', 'Carpentry'),
+  ('94889e82-82c0-459d-93c4-57d4f221f251', 'Comprehensive cleaning for homes and offices', 'Cleaning'),
+  ('48b6a52a-7b67-4428-9f63-0e4d4ec1693c', 'Skilled painting and decorating services', 'Painting'),
+  ('d1f01f57-4af0-48d8-92a6-5f74c1b6dbe1', 'Reliable HVAC installation and maintenance', 'HVAC'),
+  ('b9e07d25-5c1a-42f5-94d3-1c0a7b4f71da', 'Professional landscaping and garden care', 'Landscaping'),
+  ('c4bfa26a-d8d7-4b9d-81b8-1b7e7a71a1ec', 'Expert roofing and repair services', 'Roofing'),
+  ('a0f7d68b-4e95-4815-9358-6b4d4e4e67e4', 'Effective pest control and extermination', 'Pest Control'),
+  ('f2b8f1e4-3d9f-4a7d-8a7d-9d7e7a8d7f8d', 'Efficient moving and relocation services', 'Moving');
+
 
 INSERT INTO handyman (is_suspended, rating, type, email, first_name, handyman_id, home_or_workshop_id, last_name, password)
 VALUES
@@ -78,6 +99,15 @@ VALUES
 INSERT INTO service (duration, price, category_id, name, description, service_id, handyman_id)
 VALUES
   (60, 100, 'e5f57f20-89a7-4a95-9a10-9db4a4c27925', 'Electrical repair', 'Fixing all kinds of electrical damage', 'f80c8a06-5bc9-4149-82cd-d4e45002c3a8', '3e5d0e76-b5b3-43f5-b88d-5d17f92be31d'),
+  (120, 150, '36dc6141-8ad1-47f5-b1f0-8c70bbcf65b1', 'Pipe replacement', 'Replacing damaged or old pipes', 'a1b2c3d4-e5f6-4a5b-b1c2-3d4e5f6g7h8i', '3e5d0e76-b5b3-43f5-b88d-5d17f92be31d'),
+  (90, 120, '6f069ab3-f20d-41b7-9cfd-cb108f8d21aa', 'Furniture assembly', 'Assembling new furniture pieces', 'j1k2l3m4-n5o6-4p7q-r8s9-t0u1v2w3x4y5', '3e5d0e76-b5b3-43f5-b88d-5d17f92be31d'),
+  (180, 200, '94889e82-82c0-459d-93c4-57d4f221f251', 'Deep cleaning', 'Comprehensive cleaning of the entire house', 'z1a2b3c4-d5e6-4f7g-h8i9-j0k1l2m3n4o5', '3e5d0e76-b5b3-43f5-b88d-5d17f92be31d'),
+  (120, 180, '48b6a52a-7b67-4428-9f63-0e4d4ec1693c', 'Interior painting', 'Painting the interior walls and ceilings', 'p1q2r3s4-t5u6-4v7w-x8y9-z0a1b2c3d4e5', '3e5d0e76-b5b3-43f5-b88d-5d17f92be31d'),
+  (60, 130, 'd1f01f57-4af0-48d8-92a6-5f74c1b6dbe1', 'AC maintenance', 'Regular maintenance of air conditioning units', 'f6g7h8i9-j0k1-4l2m-n3o4-p5q6r7s8t9u0', '3e5d0e76-b5b3-43f5-b88d-5d17f92be31d'),
+  (90, 140, 'b9e07d25-5c1a-42f5-94d3-1c0a7b4f71da', 'Garden landscaping', 'Design and maintenance of garden landscapes', 'v1w2x3y4-z5a6-4b7c-d8e9-f0g1h2i3j4k5', '3e5d0e76-b5b3-43f5-b88d-5d17f92be31d'),
+  (120, 170, 'c4bfa26a-d8d7-4b9d-81b8-1b7e7a71a1ec', 'Roof inspection', 'Thorough inspection of roof conditions', 'l6m7n8o9-p0q1-4r2s-t3u4-v5w6x7y8z9a0', '3e5d0e76-b5b3-43f5-b88d-5d17f92be31d'),
+  (60, 110, 'a0f7d68b-4e95-4815-9358-6b4d4e4e67e4', 'Pest extermination', 'Extermination of common household pests', 'b1c2d3e4-f5g6-4h7i-j8k9-l0m1n2o3p4q5', '3e5d0e76-b5b3-43f5-b88d-5d17f92be31d'),
+  (180, 250, 'f2b8f1e4-3d9f-4a7d-8a7d-9d7e7a8d7f8d', 'Full house moving', 'Complete moving service for an entire house', 'r6s7t8u9-v0w1-4x2y-z3a4-b5c6d7e8f9g0', '3e5d0e76-b5b3-43f5-b88d-5d17f92be31d'),
   (120, 150, '36dc6141-8ad1-47f5-b1f0-8c70bbcf65b1', 'Plumbing repair', 'Expert plumbing services for any issue', 'a234c8a7-5bc9-4149-82cd-d4e45002c3a9', '9e8f51f7-066d-4d4e-ba08-12e53580e72b'),
   (45, 80, '6f069ab3-f20d-41b7-9cfd-cb108f8d21aa', 'Custom carpentry', 'Handcrafted furniture and fittings', 'b567d9b8-6cd0-5151-93ed-e5f56013f4b0', '7450e8ed-1d36-4e88-9e69-228baf4f1201'),
   (90, 120, '94889e82-82c0-459d-93c4-57d4f221f251', 'Home cleaning', 'Thorough cleaning for homes and offices', 'c678e0e9-7de1-6262-94fe-f6g67124g5c1', '5bc095f3-eb14-4a49-92e8-2299e024db37'),

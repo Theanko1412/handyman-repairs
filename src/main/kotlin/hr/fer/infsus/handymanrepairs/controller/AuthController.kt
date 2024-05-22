@@ -1,5 +1,6 @@
 package hr.fer.infsus.handymanrepairs.controller
 
+import hr.fer.infsus.handymanrepairs.config.ApiError
 import hr.fer.infsus.handymanrepairs.model.dto.CustomerDTO
 import hr.fer.infsus.handymanrepairs.model.dto.HandymanDTO
 import hr.fer.infsus.handymanrepairs.model.dto.toDAO
@@ -39,7 +40,12 @@ class AuthController(
         return if (session != null) {
             ResponseEntity.ok(mapOf("message" to "Session active"))
         } else {
-            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(mapOf("message" to "No active session"))
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiError(
+                statusCode = HttpStatus.UNAUTHORIZED.value(),
+                status = HttpStatus.UNAUTHORIZED.reasonPhrase,
+                message = "Session not active",
+                path = request.requestURI,
+            ))
         }
     }
 
@@ -55,17 +61,11 @@ class AuthController(
     fun registerCustomer(
         @RequestBody customerDTO: CustomerDTO,
     ): ResponseEntity<String> {
-        val homeOrWorkshop = homeOrWorkshopService.getHomeOrWorkshopById(customerDTO.homeOrWorkshopId)
-        require(homeOrWorkshop != null) { "HomeOrWorkshop with id ${customerDTO.homeOrWorkshopId} does not exist" }
         val existingCustomer = customerService.getCustomerByEmail(customerDTO.email)
         val existingHandyman = handymanService.getHandymanByEmail(customerDTO.email)
         require(existingCustomer == null && existingHandyman == null) { "User with email ${customerDTO.email} already exists" }
         val customer =
-            customerDTO.toDAO(
-                homeOrWorkshop = homeOrWorkshop,
-                notifications = emptyList(),
-                reservations = emptyList(),
-            )
+            customerDTO.toDAO()
         customer.customerPassword = passwordEncoder.encode(customer.customerPassword)
         customerService.addCustomer(customer)
         return ResponseEntity.ok("Customer registered successfully")
@@ -76,17 +76,11 @@ class AuthController(
     fun registerHandyman(
         @RequestBody handymanDTO: HandymanDTO,
     ): ResponseEntity<String> {
-        val homeOrWorkshop = homeOrWorkshopService.getHomeOrWorkshopById(handymanDTO.homeOrWorkshopId)
-        require(homeOrWorkshop != null) { "HomeOrWorkshop with id ${handymanDTO.homeOrWorkshopId} does not exist" }
         val existingCustomer = customerService.getCustomerByEmail(handymanDTO.email)
         val existingHandyman = handymanService.getHandymanByEmail(handymanDTO.email)
         require(existingCustomer == null && existingHandyman == null) { "User with email ${handymanDTO.email} already exists" }
         val handyman =
-            handymanDTO.toDAO(
-                homeOrWorkshop = homeOrWorkshop,
-                notifications = emptyList(),
-                services = emptyList(),
-            )
+            handymanDTO.toDAO()
         handyman.handymanPassword = passwordEncoder.encode(handyman.handymanPassword)
         handymanService.addHandyman(handyman)
         return ResponseEntity.ok("Handyman registered successfully")
@@ -95,6 +89,7 @@ class AuthController(
     @GetMapping("/user")
     fun getUser(
         @RequestParam email: String,
+        request: HttpServletRequest,
     ): ResponseEntity<Any> {
         val customer = customerService.getCustomerByEmail(email)?.toDTO()
         val handyman = handymanService.getHandymanByEmail(email)?.toDTO()
@@ -103,7 +98,13 @@ class AuthController(
         } else if (handyman != null) {
             ResponseEntity.ok(handyman)
         } else {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("message" to "User with email $email not found"))
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError(
+                statusCode = HttpStatus.NOT_FOUND.value(),
+                status = HttpStatus.NOT_FOUND.reasonPhrase,
+                message = "User with email $email not found",
+                path = request.requestURI,
+            )
+            )
         }
     }
 }

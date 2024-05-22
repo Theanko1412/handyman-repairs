@@ -39,13 +39,13 @@ data class Handyman(
     val isSuspended: Boolean,
     @ManyToOne
     @JoinColumn(name = "homeOrWorkshop_id")
-    val homeOrWorkshop: HomeOrWorkshop,
+    val homeOrWorkshop: HomeOrWorkshop? = null,
     @OneToMany(mappedBy = "handyman", cascade = [CascadeType.REMOVE])
     @Column(name = "notifications")
     val notifications: List<Notification>,
     @OneToMany(mappedBy = "handyman", cascade = [CascadeType.REMOVE])
     val services: List<Service>,
-    @OneToOne(mappedBy = "handyman")
+    @OneToOne(mappedBy = "handyman", cascade = [CascadeType.REMOVE])
     var schedule: Schedule? = null,
 ) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {

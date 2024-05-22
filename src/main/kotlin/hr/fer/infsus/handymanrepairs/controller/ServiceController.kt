@@ -3,8 +3,10 @@ package hr.fer.infsus.handymanrepairs.controller
 import hr.fer.infsus.handymanrepairs.model.dto.ServiceDTO
 import hr.fer.infsus.handymanrepairs.model.dto.toDTO
 import hr.fer.infsus.handymanrepairs.service.IServiceService
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
@@ -39,13 +41,14 @@ class ServiceController(
     @GetMapping("/{id}")
     fun getServiceById(
         @PathVariable id: String,
-    ): ServiceDTO? {
+    ): ServiceDTO {
         return serviceService.getServiceById(id)?.toDTO()
+            ?: throw EntityNotFoundException("Service with id $id not found")
     }
 
     @PostMapping
     fun addService(
-        @RequestBody serviceDTO: ServiceDTO,
+        @Validated @RequestBody serviceDTO: ServiceDTO,
     ): ServiceDTO {
         return serviceService.addService(serviceDTO).toDTO()
     }
@@ -61,8 +64,7 @@ class ServiceController(
     @DeleteMapping("/{id}")
     fun deleteService(
         @PathVariable id: String,
-    ): ResponseEntity<String> {
-        serviceService.deleteServiceById(id)
-        return ResponseEntity.ok("Service with id $id deleted successfully")
+    ): ServiceDTO {
+        return serviceService.deleteServiceById(id).toDTO()
     }
 }

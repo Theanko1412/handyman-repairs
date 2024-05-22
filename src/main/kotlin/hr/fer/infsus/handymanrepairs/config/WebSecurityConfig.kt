@@ -1,6 +1,8 @@
 package hr.fer.infsus.handymanrepairs.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import hr.fer.infsus.handymanrepairs.repository.CustomerRepository
+import hr.fer.infsus.handymanrepairs.repository.HandymanRepository
 import hr.fer.infsus.handymanrepairs.service.impl.CustomUserDetailsService
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -116,7 +118,12 @@ class CustomAuthenticationEntryPoint(
         response.status = HttpServletResponse.SC_UNAUTHORIZED
         response.contentType = "application/json"
         response.writer.write(
-            objectMapper.writeValueAsString(mapOf("error" to "Unauthorized", "message" to authException.message)),
+            objectMapper.writeValueAsString(ApiError(
+                statusCode = HttpServletResponse.SC_UNAUTHORIZED,
+                status = "Unauthorized",
+                message = "Request is not authorized.",
+                path = request.servletPath,
+            ))
         )
     }
 }
@@ -124,16 +131,43 @@ class CustomAuthenticationEntryPoint(
 @Component
 class CustomAuthenticationFailureHandler(
     private val objectMapper: ObjectMapper,
+    private val customerRepository: CustomerRepository,
+    private val handymanRepository: HandymanRepository,
 ) : AuthenticationFailureHandler {
     override fun onAuthenticationFailure(
         request: HttpServletRequest,
         response: HttpServletResponse,
         exception: AuthenticationException,
     ) {
+        val username = request.getParameter("username")
+        val account = customerRepository.findCustomerByEmail(username)
+            ?: handymanRepository.findHandymanByEmail(username)
+
+        if(account != null && !account.isAccountNonLocked) {
+            response.status = HttpServletResponse.SC_UNAUTHORIZED
+            response.contentType = "application/json"
+            response.writer.write(
+                objectMapper.writeValueAsString(
+                    ApiError(
+                    statusCode = HttpServletResponse.SC_UNAUTHORIZED,
+                    status = "Unauthorized",
+                    message = "Account is locked due to too many strikes.",
+                    path = request.servletPath,
+                )
+                )
+            )
+            return
+        }
         response.status = HttpServletResponse.SC_UNAUTHORIZED
         response.contentType = "application/json"
         response.writer.write(
-            objectMapper.writeValueAsString(mapOf("error" to "Unauthorized", "message" to "Invalid username or password")),
+            objectMapper.writeValueAsString(ApiError(
+                statusCode = HttpServletResponse.SC_UNAUTHORIZED,
+                status = "Unauthorized",
+                message = "Invalid username or password.",
+                path = request.servletPath,
+            )
+        )
         )
     }
 }

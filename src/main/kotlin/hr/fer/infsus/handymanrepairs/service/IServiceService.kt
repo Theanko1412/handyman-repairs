@@ -19,5 +19,5 @@ interface IServiceService {
 
     fun getServicesByCategoryId(id: String): List<Service>
 
-    fun deleteServiceById(id: String)
+    fun deleteServiceById(id: String): Service
 }

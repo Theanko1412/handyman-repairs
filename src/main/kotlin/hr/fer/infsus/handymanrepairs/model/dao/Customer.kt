@@ -38,7 +38,7 @@ data class Customer(
     val isSuspended: Boolean,
     @ManyToOne
     @JoinColumn(name = "homeOrWorkshop_id")
-    val homeOrWorkshop: HomeOrWorkshop,
+    val homeOrWorkshop: HomeOrWorkshop? = null,
     @OneToMany(mappedBy = "customer", cascade = [CascadeType.REMOVE])
     @Column(name = "notifications")
     val notifications: List<Notification>,
@@ -76,7 +76,7 @@ data class Customer(
 
     override fun toString(): String {
         return "Customer(id=$id, firstName='$firstName', lastName='$lastName', email='$email', " +
-            "strikes=$strikes, isSuspended=$isSuspended, homeOrWorkshop=${homeOrWorkshop.street})"
+            "strikes=$strikes, isSuspended=$isSuspended, homeOrWorkshop=${homeOrWorkshop?.street})"
     }
 }
 

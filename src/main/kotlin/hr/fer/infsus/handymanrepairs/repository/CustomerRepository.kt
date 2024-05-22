@@ -3,8 +3,6 @@ package hr.fer.infsus.handymanrepairs.repository
 import hr.fer.infsus.handymanrepairs.model.dao.Customer
 import org.springframework.data.jpa.repository.JpaRepository
 
-//    @Column(name = "is_suspended")
-//    val isSuspended: Boolean,
 interface CustomerRepository : JpaRepository<Customer, String> {
     fun findCustomerById(id: String): Customer?
 

@@ -7,6 +7,7 @@ import hr.fer.infsus.handymanrepairs.service.ICityService
 import hr.fer.infsus.handymanrepairs.service.ICountryService
 import hr.fer.infsus.handymanrepairs.service.IHomeOrWorkshopService
 import hr.fer.infsus.handymanrepairs.service.IStreetService
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -40,7 +41,7 @@ class HomeOrWorkshopService(
 
     override fun getEnrichedHomeOrWorkshopById(id: String): EnrichedHomeOrWorkshopDTO {
         val homeOrWorkshop = homeOrWorkshopRepository.findHomeOrWorkshopById(id)
-        require(homeOrWorkshop != null) { "Home or workshop with id $id not found" }
+            ?: throw EntityNotFoundException("Home or workshop with id $id not found")
         val enriched =
             EnrichedHomeOrWorkshopDTO(
                 id = id,

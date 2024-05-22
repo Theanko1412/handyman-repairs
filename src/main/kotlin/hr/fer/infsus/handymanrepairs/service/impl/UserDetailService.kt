@@ -30,4 +30,4 @@ class CustomUserDetailsService(
     }
 }
 
-class SpotlessDontComplain {}
+class SpotlessDontComplain

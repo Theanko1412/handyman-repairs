@@ -2,6 +2,7 @@ package hr.fer.infsus.handymanrepairs.controller
 
 import hr.fer.infsus.handymanrepairs.model.dto.ScheduleDTO
 import hr.fer.infsus.handymanrepairs.service.IScheduleService
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -22,7 +23,8 @@ class ScheduleController(
     @GetMapping("/{id}")
     fun getScheduleById(
         @PathVariable id: String,
-    ): ScheduleDTO? {
+    ): ScheduleDTO {
         return scheduleService.getScheduleDTOById(id)
+            ?: throw EntityNotFoundException("Schedule with id $id not found")
     }
 }

@@ -15,7 +15,7 @@ data class CustomerDTO(
     val type: String = "CUSTOMER",
     val strikes: Int = 0,
     val isSuspended: Boolean = false,
-    val homeOrWorkshopId: String,
+    val homeOrWorkshopId: String? = null,
     val notificationIds: List<String> = emptyList(),
     val reservationIds: List<String> = emptyList(),
 )
@@ -29,16 +29,15 @@ fun Customer.toDTO() =
         type = this.type.name,
         strikes = this.strikes,
         isSuspended = this.isSuspended,
-        homeOrWorkshopId = this.homeOrWorkshop.id!!,
+        homeOrWorkshopId = this.homeOrWorkshop?.id,
         notificationIds = this.notifications.map { it.id!! },
         reservationIds = this.reservations.map { it.id!! },
         password = "***",
     )
 
 fun CustomerDTO.toDAO(
-    homeOrWorkshop: HomeOrWorkshop,
-    notifications: List<Notification>,
-    reservations: List<Reservation>,
+    notifications: List<Notification> = emptyList(),
+    reservations: List<Reservation> = emptyList(),
 ) = Customer(
     id = this.id,
     firstName = this.firstName,
@@ -47,7 +46,7 @@ fun CustomerDTO.toDAO(
     type = CustomerType.CUSTOMER,
     strikes = this.strikes,
     isSuspended = this.isSuspended,
-    homeOrWorkshop = homeOrWorkshop,
+    homeOrWorkshop = null,
     notifications = notifications,
     reservations = reservations,
     customerPassword = this.password,

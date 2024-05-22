@@ -13,7 +13,7 @@ data class ScheduleDTO(
 fun Schedule.toDTO() =
     ScheduleDTO(
         id = this.id,
-        handymanId = this.handyman?.id!!,
+        handymanId = this.handyman?.id,
         reservationIds = this.reservations.map { it.id!! },
     )
 

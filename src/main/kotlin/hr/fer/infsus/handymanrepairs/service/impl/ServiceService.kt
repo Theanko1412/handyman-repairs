@@ -73,9 +73,10 @@ class ServiceService(
         return serviceRepository.findServicesByCategoryId(id)
     }
 
-    override fun deleteServiceById(id: String) {
+    override fun deleteServiceById(id: String): Service {
         val service = serviceRepository.findServiceById(id)
         require(service != null) { "Service with id $id does not exist" }
         serviceRepository.delete(service)
+        return service
     }
 }

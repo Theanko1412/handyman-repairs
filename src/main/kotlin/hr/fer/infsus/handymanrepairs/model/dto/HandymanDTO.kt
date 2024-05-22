@@ -15,7 +15,7 @@ data class HandymanDTO(
     val password: String,
     val rating: Double = 0.0,
     val isSuspended: Boolean = false,
-    val homeOrWorkshopId: String,
+    val homeOrWorkshopId: String? = null,
     val notificationIds: List<String> = emptyList(),
     val serviceIds: List<String> = emptyList(),
     val scheduleId: String? = null,
@@ -30,7 +30,7 @@ fun Handyman.toDTO() =
         rating = this.rating,
         type = this.type.name,
         isSuspended = this.isSuspended,
-        homeOrWorkshopId = this.homeOrWorkshop.id!!,
+        homeOrWorkshopId = this.homeOrWorkshop?.id,
         notificationIds = this.notifications.map { it.id!! },
         serviceIds = this.services.map { it.id!! },
         scheduleId = this.schedule?.id,
@@ -38,9 +38,8 @@ fun Handyman.toDTO() =
     )
 
 fun HandymanDTO.toDAO(
-    homeOrWorkshop: HomeOrWorkshop,
-    notifications: List<Notification>,
-    services: List<Service>,
+    notifications: List<Notification> = emptyList(),
+    services: List<Service> = emptyList(),
 ) = Handyman(
     id = this.id,
     firstName = this.firstName,
@@ -49,7 +48,7 @@ fun HandymanDTO.toDAO(
     type = CustomerType.HANDYMAN,
     rating = this.rating,
     isSuspended = this.isSuspended,
-    homeOrWorkshop = homeOrWorkshop,
+    homeOrWorkshop = null,
     notifications = notifications,
     services = services,
     schedule = null,

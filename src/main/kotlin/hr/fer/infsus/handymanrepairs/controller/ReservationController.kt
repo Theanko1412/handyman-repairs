@@ -4,7 +4,9 @@ import hr.fer.infsus.handymanrepairs.model.dao.Status
 import hr.fer.infsus.handymanrepairs.model.dto.ReservationDTO
 import hr.fer.infsus.handymanrepairs.model.dto.toDTO
 import hr.fer.infsus.handymanrepairs.service.IReservationService
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -25,7 +27,7 @@ class ReservationController(
         @RequestParam(required = false) scheduleId: String? = null,
         @RequestParam(required = false) customerId: String? = null,
         @RequestParam(required = false) status: Status? = null,
-    ): List<ReservationDTO>? {
+    ): List<ReservationDTO> {
         require(!(scheduleId != null && customerId != null)) { "Only one filter can be used" }
         require(status in Status.entries.toTypedArray() || status == null) { "Invalid status, must be one of ${Status.entries}" }
 
@@ -50,16 +52,16 @@ class ReservationController(
     fun getReservation(
         @PathVariable id: String,
         @RequestParam(required = false) status: Status? = null,
-    ): ReservationDTO? {
+    ): ReservationDTO {
         return reservationService.getReservationById(id)?.toDTO()
+            ?: throw EntityNotFoundException("Reservation with id $id not found")
     }
 
     @PostMapping
     fun addReservation(
-        @RequestBody reservationDTO: ReservationDTO,
+        @Validated @RequestBody reservationDTO: ReservationDTO,
     ): ReservationDTO {
         val reservation = reservationService.buildReservation(reservationDTO)
-
         return reservationService.addReservation(reservation).toDTO()
     }
 
