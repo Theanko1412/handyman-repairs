@@ -40,12 +40,14 @@ class AuthController(
         return if (session != null) {
             ResponseEntity.ok(mapOf("message" to "Session active"))
         } else {
-            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiError(
-                statusCode = HttpStatus.UNAUTHORIZED.value(),
-                status = HttpStatus.UNAUTHORIZED.reasonPhrase,
-                message = "Session not active",
-                path = request.requestURI,
-            ))
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                ApiError(
+                    statusCode = HttpStatus.UNAUTHORIZED.value(),
+                    status = HttpStatus.UNAUTHORIZED.reasonPhrase,
+                    message = "Session not active",
+                    path = request.requestURI,
+                ),
+            )
         }
     }
 
@@ -98,12 +100,13 @@ class AuthController(
         } else if (handyman != null) {
             ResponseEntity.ok(handyman)
         } else {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError(
-                statusCode = HttpStatus.NOT_FOUND.value(),
-                status = HttpStatus.NOT_FOUND.reasonPhrase,
-                message = "User with email $email not found",
-                path = request.requestURI,
-            )
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                ApiError(
+                    statusCode = HttpStatus.NOT_FOUND.value(),
+                    status = HttpStatus.NOT_FOUND.reasonPhrase,
+                    message = "User with email $email not found",
+                    path = request.requestURI,
+                ),
             )
         }
     }

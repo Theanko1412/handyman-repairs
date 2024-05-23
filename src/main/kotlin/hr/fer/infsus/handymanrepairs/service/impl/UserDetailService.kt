@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
 @Service
-class CustomUserDetailsService(
+class UserDetailService(
     @Autowired
     private val customerRepository: CustomerRepository,
     @Autowired
@@ -29,5 +29,3 @@ class CustomUserDetailsService(
         throw UsernameNotFoundException("User not found with email: $username")
     }
 }
-
-class SpotlessDontComplain

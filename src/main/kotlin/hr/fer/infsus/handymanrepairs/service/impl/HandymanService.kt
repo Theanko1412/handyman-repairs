@@ -31,6 +31,4 @@ class HandymanService(
     override fun getHandymanBySchedule(schedule: Schedule): Handyman? {
         return handymanRepository.findHandymanBySchedule(schedule)
     }
-
-
 }

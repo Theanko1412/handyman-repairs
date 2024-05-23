@@ -1,3 +1,5 @@
+--may be older version
+
 create table country (
   country_id character varying(255) primary key not null,
   name character varying(255)

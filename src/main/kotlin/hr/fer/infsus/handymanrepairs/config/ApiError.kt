@@ -7,5 +7,5 @@ data class ApiError(
     val status: String,
     val message: String,
     val path: String,
-    val timestamp: OffsetDateTime = OffsetDateTime.now()
+    val timestamp: OffsetDateTime = OffsetDateTime.now(),
 )

@@ -3,7 +3,7 @@ package hr.fer.infsus.handymanrepairs.config
 import com.fasterxml.jackson.databind.ObjectMapper
 import hr.fer.infsus.handymanrepairs.repository.CustomerRepository
 import hr.fer.infsus.handymanrepairs.repository.HandymanRepository
-import hr.fer.infsus.handymanrepairs.service.impl.CustomUserDetailsService
+import hr.fer.infsus.handymanrepairs.service.impl.UserDetailService
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.beans.factory.annotation.Autowired
@@ -34,7 +34,7 @@ class WebSecurityConfig(
     @Autowired
     private val customAuthenticationFailureHandler: CustomAuthenticationFailureHandler,
     @Autowired
-    private val customUserDetailsService: CustomUserDetailsService,
+    private val userDetailService: UserDetailService,
     @Autowired
     private val objectMapper: ObjectMapper,
 ) {
@@ -68,7 +68,7 @@ class WebSecurityConfig(
             }
             .formLogin {
                 it.loginProcessingUrl("/auth/login")
-                    .successHandler { request, response, authentication ->
+                    .successHandler { _, response, _ ->
                         response.status = HttpServletResponse.SC_OK
                         response.contentType = "application/json"
                         response.writer.write(objectMapper.writeValueAsString(mapOf("message" to "Login successful")))
@@ -81,7 +81,7 @@ class WebSecurityConfig(
             }
             .logout {
                 it.logoutUrl("/auth/logout")
-                    .logoutSuccessHandler { request, response, authentication ->
+                    .logoutSuccessHandler { _, response, _ ->
                         response.status = HttpServletResponse.SC_OK
                         response.contentType = "application/json"
                         response.writer.write(objectMapper.writeValueAsString(mapOf("message" to "Logout successful")))
@@ -94,7 +94,7 @@ class WebSecurityConfig(
     @Bean
     fun daoAuthenticationProvider(): DaoAuthenticationProvider {
         val authProvider = DaoAuthenticationProvider()
-        authProvider.setUserDetailsService(customUserDetailsService)
+        authProvider.setUserDetailsService(userDetailService)
         authProvider.setPasswordEncoder(passwordEncoder())
         return authProvider
     }
@@ -118,12 +118,14 @@ class CustomAuthenticationEntryPoint(
         response.status = HttpServletResponse.SC_UNAUTHORIZED
         response.contentType = "application/json"
         response.writer.write(
-            objectMapper.writeValueAsString(ApiError(
-                statusCode = HttpServletResponse.SC_UNAUTHORIZED,
-                status = "Unauthorized",
-                message = "Request is not authorized.",
-                path = request.servletPath,
-            ))
+            objectMapper.writeValueAsString(
+                ApiError(
+                    statusCode = HttpServletResponse.SC_UNAUTHORIZED,
+                    status = "Unauthorized",
+                    message = "Request is not authorized.",
+                    path = request.servletPath,
+                ),
+            ),
         )
     }
 }
@@ -140,34 +142,36 @@ class CustomAuthenticationFailureHandler(
         exception: AuthenticationException,
     ) {
         val username = request.getParameter("username")
-        val account = customerRepository.findCustomerByEmail(username)
-            ?: handymanRepository.findHandymanByEmail(username)
+        val account =
+            customerRepository.findCustomerByEmail(username)
+                ?: handymanRepository.findHandymanByEmail(username)
 
-        if(account != null && !account.isAccountNonLocked) {
+        if (account != null && !account.isAccountNonLocked) {
             response.status = HttpServletResponse.SC_UNAUTHORIZED
             response.contentType = "application/json"
             response.writer.write(
                 objectMapper.writeValueAsString(
                     ApiError(
-                    statusCode = HttpServletResponse.SC_UNAUTHORIZED,
-                    status = "Unauthorized",
-                    message = "Account is locked due to too many strikes.",
-                    path = request.servletPath,
-                )
-                )
+                        statusCode = HttpServletResponse.SC_UNAUTHORIZED,
+                        status = "Unauthorized",
+                        message = "Account is locked due to too many strikes.",
+                        path = request.servletPath,
+                    ),
+                ),
             )
             return
         }
         response.status = HttpServletResponse.SC_UNAUTHORIZED
         response.contentType = "application/json"
         response.writer.write(
-            objectMapper.writeValueAsString(ApiError(
-                statusCode = HttpServletResponse.SC_UNAUTHORIZED,
-                status = "Unauthorized",
-                message = "Invalid username or password.",
-                path = request.servletPath,
-            )
-        )
+            objectMapper.writeValueAsString(
+                ApiError(
+                    statusCode = HttpServletResponse.SC_UNAUTHORIZED,
+                    status = "Unauthorized",
+                    message = "Invalid username or password.",
+                    path = request.servletPath,
+                ),
+            ),
         )
     }
 }

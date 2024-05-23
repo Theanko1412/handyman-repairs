@@ -2,7 +2,6 @@ package hr.fer.infsus.handymanrepairs.model.dto
 
 import hr.fer.infsus.handymanrepairs.model.dao.CustomerType
 import hr.fer.infsus.handymanrepairs.model.dao.Handyman
-import hr.fer.infsus.handymanrepairs.model.dao.HomeOrWorkshop
 import hr.fer.infsus.handymanrepairs.model.dao.Notification
 import hr.fer.infsus.handymanrepairs.model.dao.Service
 

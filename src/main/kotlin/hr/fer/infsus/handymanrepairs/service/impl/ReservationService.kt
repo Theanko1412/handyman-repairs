@@ -81,40 +81,38 @@ class ReservationService(
         require(schedule != null) { "Schedule with ID ${reservation.scheduleId} not found" }
         require(service != null) { "Service with ID ${reservation.serviceId} not found" }
 
-        val refreshBuffer = 30
-        val newReservationDateTime = OffsetDateTime.parse(reservation.dateTime)
-        val newReservationEndTime = newReservationDateTime.plusMinutes(service.duration.toLong())
+        val refreshBufferTime = 30
 
-        val reservationStartHour = newReservationDateTime.hour
-        val reservationEndHour = newReservationEndTime.hour
-        val reservationEndMinute = newReservationEndTime.minute
+        val newReservationStart = OffsetDateTime.parse(reservation.dateTime)
+        val newReservationEnd = newReservationStart.plusMinutes(service.duration.toLong() + refreshBufferTime)
 
-        if (reservationStartHour < 7) {
-            throw IllegalArgumentException("Reservation must start after 7 AM. Available times are from 7 AM onwards.")
-        }
+        val existingReservations = scheduleService.getScheduleById(reservation.scheduleId)?.reservations ?: emptyList()
 
-        if (reservationEndHour > 17 || (reservationEndHour == 17 && reservationEndMinute > 0)) {
-            throw IllegalArgumentException("Reservation must end before 5 PM. Available times end at 5 PM.")
-        }
+        for (existingReservation in existingReservations) {
+            val existingReservationStart = existingReservation.dateTime
+            val existingReservationEnd =
+                existingReservationStart
+                    .plusMinutes(existingReservation.service.duration.toLong() + refreshBufferTime)
 
-        for (oldReservation in schedule.reservations) {
-            val oldReservationStart = oldReservation.dateTime
-            val oldReservationEnd = oldReservationStart.plusMinutes(oldReservation.service.duration.toLong()).plusMinutes(refreshBuffer.toLong())
-
-            if (newReservationDateTime.isBefore(oldReservationEnd) && newReservationEndTime.isAfter(oldReservationStart)) {
-                val availableAfter = oldReservationEnd.plusMinutes(refreshBuffer.toLong())
-                val availableBefore = oldReservationStart.minusMinutes(service.duration.toLong()).minusMinutes(refreshBuffer.toLong())
-
-                throw IllegalArgumentException("Reservation time is not available. Please choose a time after ${availableAfter.atZoneSameInstant(ZoneId.of("Europe/Zagreb"))} or before ${availableBefore.atZoneSameInstant(ZoneId.of("Europe/Zagreb"))}.")
+            if (newReservationStart.isBefore(existingReservationEnd) &&
+                newReservationEnd.isAfter(existingReservationStart)
+            ) {
+                val suggestedTimeBefore =
+                    existingReservationStart
+                        .minusMinutes(service.duration.toLong() + refreshBufferTime)
+                val suggestedTimeAfter = existingReservationEnd
+                val errorMessage =
+                    "New reservation overlaps with an existing reservation. Please book before " +
+                        "${suggestedTimeBefore.atZoneSameInstant(ZoneId.of("Europe/Zagreb")).hour}" +
+                        ":${suggestedTimeBefore.atZoneSameInstant(ZoneId.of("Europe/Zagreb")).minute} " +
+                        "or after ${suggestedTimeAfter.atZoneSameInstant(ZoneId.of("Europe/Zagreb")).hour}:" +
+                        "${suggestedTimeAfter.atZoneSameInstant(ZoneId.of("Europe/Zagreb")).minute}"
+                throw IllegalArgumentException(errorMessage)
             }
         }
 
         return true
     }
-
-
-
-
 
     override fun updateReservationStatusById(
         id: String,

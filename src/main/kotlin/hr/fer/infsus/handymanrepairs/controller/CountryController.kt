@@ -13,16 +13,17 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/country")
 class CountryController(
-        private val countryService: ICountryService
+    private val countryService: ICountryService,
 ) {
-
     @GetMapping
     fun getAllCountries(): List<CountryDTO> {
         return countryService.getAllCountries().map(Country::toDTO)
     }
 
     @GetMapping("/{id}")
-    fun getCountryById(@PathVariable id: String): CountryDTO {
+    fun getCountryById(
+        @PathVariable id: String,
+    ): CountryDTO {
         return countryService.getCountryById(id)?.toDTO() ?: throw EntityNotFoundException("Country with id $id not found")
     }
 }

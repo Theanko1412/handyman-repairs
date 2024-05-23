@@ -40,8 +40,9 @@ class HomeOrWorkshopService(
     }
 
     override fun getEnrichedHomeOrWorkshopById(id: String): EnrichedHomeOrWorkshopDTO {
-        val homeOrWorkshop = homeOrWorkshopRepository.findHomeOrWorkshopById(id)
-            ?: throw EntityNotFoundException("Home or workshop with id $id not found")
+        val homeOrWorkshop =
+            homeOrWorkshopRepository.findHomeOrWorkshopById(id)
+                ?: throw EntityNotFoundException("Home or workshop with id $id not found")
         val enriched =
             EnrichedHomeOrWorkshopDTO(
                 id = id,
