@@ -71,9 +71,10 @@ class UserDetailServiceTest : FunSpec({
         every { customerRepository.findCustomerByEmail("email") } returns null
         every { handymanRepository.findHandymanByEmail("email") } returns null
 
-        val exception = shouldThrow<UsernameNotFoundException> {
-            userDetailService.loadUserByUsername("email")
-        }
+        val exception =
+            shouldThrow<UsernameNotFoundException> {
+                userDetailService.loadUserByUsername("email")
+            }
 
         exception.message shouldBe "User not found with email: email"
     }

@@ -5,9 +5,8 @@ import hr.fer.infsus.handymanrepairs.model.dto.CustomerDTO
 import hr.fer.infsus.handymanrepairs.model.dto.HandymanDTO
 import hr.fer.infsus.handymanrepairs.model.dto.toDAO
 import hr.fer.infsus.handymanrepairs.model.dto.toDTO
-import hr.fer.infsus.handymanrepairs.service.impl.CustomerService
-import hr.fer.infsus.handymanrepairs.service.impl.HandymanService
-import hr.fer.infsus.handymanrepairs.service.impl.HomeOrWorkshopService
+import hr.fer.infsus.handymanrepairs.service.ICustomerService
+import hr.fer.infsus.handymanrepairs.service.IHandymanService
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -26,11 +25,9 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/auth")
 class AuthController(
     @Autowired
-    private val customerService: CustomerService,
+    private val customerService: ICustomerService,
     @Autowired
-    private val handymanService: HandymanService,
-    @Autowired
-    private val homeOrWorkshopService: HomeOrWorkshopService,
+    private val handymanService: IHandymanService,
     @Autowired
     private val passwordEncoder: PasswordEncoder,
 ) {

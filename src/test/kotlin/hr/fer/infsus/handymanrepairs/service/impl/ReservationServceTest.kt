@@ -416,7 +416,6 @@ class ReservationServceTest : FunSpec({
             every { repositoryMock.deleteReservationById("1") } returns Unit
 
             service.deleteReservationById("1") shouldBe Unit
-
         }
 
         test("should build reservation from dto") {
@@ -493,9 +492,10 @@ class ReservationServceTest : FunSpec({
                     "2222-01-01T00:00:00Z",
                 )
 
-            val exception = shouldThrow<IllegalArgumentException> {
-                service.validateReservation(reservationDTO)
-            }
+            val exception =
+                shouldThrow<IllegalArgumentException> {
+                    service.validateReservation(reservationDTO)
+                }
 
             exception.message shouldBe "Customer ID must not be empty"
         }
@@ -511,9 +511,10 @@ class ReservationServceTest : FunSpec({
                     "2222-01-01T00:00:00Z",
                 )
 
-            val exception = shouldThrow<IllegalArgumentException> {
-                service.validateReservation(reservationDTO)
-            }
+            val exception =
+                shouldThrow<IllegalArgumentException> {
+                    service.validateReservation(reservationDTO)
+                }
 
             exception.message shouldBe "Schedule ID must not be empty"
         }
@@ -529,9 +530,10 @@ class ReservationServceTest : FunSpec({
                     "2222-01-01T00:00:00Z",
                 )
 
-            val exception = shouldThrow<IllegalArgumentException> {
-                service.validateReservation(reservationDTO)
-            }
+            val exception =
+                shouldThrow<IllegalArgumentException> {
+                    service.validateReservation(reservationDTO)
+                }
 
             exception.message shouldBe "Service ID must not be empty"
         }
@@ -547,9 +549,10 @@ class ReservationServceTest : FunSpec({
                     "2020-01-01T00:00:00Z",
                 )
 
-            val exception = shouldThrow<IllegalArgumentException> {
-                service.validateReservation(reservationDTO)
-            }
+            val exception =
+                shouldThrow<IllegalArgumentException> {
+                    service.validateReservation(reservationDTO)
+                }
 
             exception.message shouldBe "Reservation date must be in the future"
         }
@@ -567,9 +570,10 @@ class ReservationServceTest : FunSpec({
 
             every { customerServiceMock.getCustomerById("1") } returns null
 
-            val exception = shouldThrow<IllegalArgumentException> {
-                service.validateReservation(reservationDTO)
-            }
+            val exception =
+                shouldThrow<IllegalArgumentException> {
+                    service.validateReservation(reservationDTO)
+                }
 
             exception.message shouldBe "Customer with ID 1 not found"
         }
@@ -588,9 +592,10 @@ class ReservationServceTest : FunSpec({
             every { customerServiceMock.getCustomerById("1") } returns dummyCustomer1
             every { scheduleServiceMock.getScheduleById("1") } returns null
 
-            val exception = shouldThrow<IllegalArgumentException> {
-                service.validateReservation(reservationDTO)
-            }
+            val exception =
+                shouldThrow<IllegalArgumentException> {
+                    service.validateReservation(reservationDTO)
+                }
 
             exception.message shouldBe "Schedule with ID 1 not found"
         }
@@ -610,9 +615,10 @@ class ReservationServceTest : FunSpec({
             every { scheduleServiceMock.getScheduleById("1") } returns dummySchedule1
             every { serviceServiceMock.getServiceById("1") } returns null
 
-            val exception = shouldThrow<IllegalArgumentException> {
-                service.validateReservation(reservationDTO)
-            }
+            val exception =
+                shouldThrow<IllegalArgumentException> {
+                    service.validateReservation(reservationDTO)
+                }
 
             exception.message shouldBe "Service with ID 1 not found"
         }
@@ -640,16 +646,17 @@ class ReservationServceTest : FunSpec({
         }
 
         test("should fail if new reservation starts before prevoius ends") {
-            val reservations = listOf(
-                Reservation(
-                    "1",
-                    dummyCustomer1,
-                    Status.PENDING,
-                    dummySchedule1,
-                    dummyService1,
-                    OffsetDateTime.parse("2222-01-01T00:00:00Z"),
-                ),
-            )
+            val reservations =
+                listOf(
+                    Reservation(
+                        "1",
+                        dummyCustomer1,
+                        Status.PENDING,
+                        dummySchedule1,
+                        dummyService1,
+                        OffsetDateTime.parse("2222-01-01T00:00:00Z"),
+                    ),
+                )
 
             val reservationDTO =
                 ReservationDTO(
@@ -666,24 +673,26 @@ class ReservationServceTest : FunSpec({
             every { serviceServiceMock.getServiceById("1") } returns dummyService1
             every { scheduleServiceMock.getScheduleById("1")?.reservations } returns reservations
 
-            val exception = shouldThrow<IllegalArgumentException> {
-                service.validateReservation(reservationDTO)
-            }
+            val exception =
+                shouldThrow<IllegalArgumentException> {
+                    service.validateReservation(reservationDTO)
+                }
 
             exception.message shouldStartWith "New reservation overlaps with an existing reservation"
         }
 
         test("should pass if new reservation starts after prevoius ends") {
-            val reservations = listOf(
-                Reservation(
-                    "1",
-                    dummyCustomer1,
-                    Status.PENDING,
-                    dummySchedule1,
-                    dummyService1,
-                    OffsetDateTime.parse("2222-01-01T00:00:00Z"),
-                ),
-            )
+            val reservations =
+                listOf(
+                    Reservation(
+                        "1",
+                        dummyCustomer1,
+                        Status.PENDING,
+                        dummySchedule1,
+                        dummyService1,
+                        OffsetDateTime.parse("2222-01-01T00:00:00Z"),
+                    ),
+                )
 
             val reservationDTO =
                 ReservationDTO(
@@ -706,16 +715,17 @@ class ReservationServceTest : FunSpec({
         }
 
         test("should fail if new reservation ends after prevoius starts") {
-            val reservations = listOf(
-                Reservation(
-                    "1",
-                    dummyCustomer1,
-                    Status.PENDING,
-                    dummySchedule1,
-                    dummyService1,
-                    OffsetDateTime.parse("2222-01-01T00:00:00Z"),
-                ),
-            )
+            val reservations =
+                listOf(
+                    Reservation(
+                        "1",
+                        dummyCustomer1,
+                        Status.PENDING,
+                        dummySchedule1,
+                        dummyService1,
+                        OffsetDateTime.parse("2222-01-01T00:00:00Z"),
+                    ),
+                )
 
             val reservationDTO =
                 ReservationDTO(
@@ -732,24 +742,26 @@ class ReservationServceTest : FunSpec({
             every { serviceServiceMock.getServiceById("1") } returns dummyService1
             every { scheduleServiceMock.getScheduleById("1")?.reservations } returns reservations
 
-            val exception = shouldThrow<IllegalArgumentException> {
-                service.validateReservation(reservationDTO)
-            }
+            val exception =
+                shouldThrow<IllegalArgumentException> {
+                    service.validateReservation(reservationDTO)
+                }
 
             exception.message shouldStartWith "New reservation overlaps with an existing reservation"
         }
 
         test("should pass if new reservation ends before prevoius starts") {
-            val reservations = listOf(
-                Reservation(
-                    "1",
-                    dummyCustomer1,
-                    Status.PENDING,
-                    dummySchedule1,
-                    dummyService1,
-                    OffsetDateTime.parse("2222-01-01T00:00:00Z"),
-                ),
-            )
+            val reservations =
+                listOf(
+                    Reservation(
+                        "1",
+                        dummyCustomer1,
+                        Status.PENDING,
+                        dummySchedule1,
+                        dummyService1,
+                        OffsetDateTime.parse("2222-01-01T00:00:00Z"),
+                    ),
+                )
 
             val reservationDTO =
                 ReservationDTO(

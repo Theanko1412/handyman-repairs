@@ -69,4 +69,15 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	dependsOn("spotlessApply")
+}
+
+kover {
+	reports {
+		filters {
+			excludes {
+				classes("hr.fer.infsus.handymanrepairs.controller.AuthController")
+			}
+		}
+	}
 }

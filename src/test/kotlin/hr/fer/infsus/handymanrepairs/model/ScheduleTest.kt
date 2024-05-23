@@ -13,24 +13,25 @@ class ScheduleTest : FunSpec({
 
     context("dao to dto") {
         test("should convert dao to dto") {
-            val dao = Schedule(
-                "1",
-                Handyman(
+            val dao =
+                Schedule(
                     "1",
-                    "John",
-                    "Doe",
-                    "email",
-                    "password",
-                    CustomerType.HANDYMAN,
-                    2.0,
-                    false,
-                    null,
+                    Handyman(
+                        "1",
+                        "John",
+                        "Doe",
+                        "email",
+                        "password",
+                        CustomerType.HANDYMAN,
+                        2.0,
+                        false,
+                        null,
+                        emptyList(),
+                        emptyList(),
+                        null,
+                    ),
                     emptyList(),
-                    emptyList(),
-                    null,
-                ),
-                emptyList(),
-            )
+                )
 
             val dto = dao.toDTO()
 
@@ -42,29 +43,31 @@ class ScheduleTest : FunSpec({
 
     context("dto to dao") {
         test("should convert dto to dao") {
-            val dto = ScheduleDTO(
-                "1",
-                "1",
-                emptyList(),
-            )
-
-            val dao = dto.toDAO(
-                Handyman(
+            val dto =
+                ScheduleDTO(
                     "1",
-                    "John",
-                    "Doe",
-                    "email",
-                    "password",
-                    CustomerType.HANDYMAN,
-                    2.0,
-                    false,
-                    null,
+                    "1",
                     emptyList(),
-                    emptyList(),
-                    null,
-                ),
-                listOf()
-            )
+                )
+
+            val dao =
+                dto.toDAO(
+                    Handyman(
+                        "1",
+                        "John",
+                        "Doe",
+                        "email",
+                        "password",
+                        CustomerType.HANDYMAN,
+                        2.0,
+                        false,
+                        null,
+                        emptyList(),
+                        emptyList(),
+                        null,
+                    ),
+                    listOf(),
+                )
 
             dao.id shouldBe "1"
             dao.handyman!!.id shouldBe "1"

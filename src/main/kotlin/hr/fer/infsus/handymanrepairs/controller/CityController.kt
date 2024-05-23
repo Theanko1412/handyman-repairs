@@ -16,12 +16,12 @@ class CityController(
     private val cityService: ICityService,
 ) {
     @GetMapping
-    fun getAllCountries(): List<CityDTO> {
+    fun getAllCities(): List<CityDTO> {
         return cityService.getAllCities().map(City::toDTO)
     }
 
     @GetMapping("/{id}")
-    fun getCountryById(
+    fun getCityById(
         @PathVariable id: String,
     ): CityDTO {
         return cityService.getCityById(id)?.toDTO() ?: throw EntityNotFoundException("City with id $id not found")

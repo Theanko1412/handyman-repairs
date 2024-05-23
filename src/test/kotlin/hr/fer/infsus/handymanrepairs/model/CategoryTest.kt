@@ -11,12 +11,13 @@ class CategoryTest : FunSpec({
 
     context("dao to dto") {
         test("should convert dao to dto") {
-            val categoryDao = Category(
-                id = "1",
-                name = "Category 1",
-                description = "Description 1",
-                services = emptyList(),
-            )
+            val categoryDao =
+                Category(
+                    id = "1",
+                    name = "Category 1",
+                    description = "Description 1",
+                    services = emptyList(),
+                )
 
             val categoryDto = categoryDao.toDTO()
 
@@ -29,12 +30,13 @@ class CategoryTest : FunSpec({
 
     context("dto to dao") {
         test("should convert dto to dao") {
-            val categoryDto = CategoryDTO(
-                id = "1",
-                name = "Category 1",
-                description = "Description 1",
-                serviceIds = emptyList(),
-            )
+            val categoryDto =
+                CategoryDTO(
+                    id = "1",
+                    name = "Category 1",
+                    description = "Description 1",
+                    serviceIds = emptyList(),
+                )
 
             val categoryDao = categoryDto.toDAO(emptyList())
 

@@ -12,7 +12,7 @@ class CityTest : FunSpec({
 
     context("dao to dto") {
         test("should convert dao to dto") {
-            val city =  City("1", "Zagreb", Country("1", "Croatia", emptyList()), emptyList())
+            val city = City("1", "Zagreb", Country("1", "Croatia", emptyList()), emptyList())
 
             val cityDto = city.toDTO()
 
@@ -27,9 +27,11 @@ class CityTest : FunSpec({
         test("should convert dto to dao") {
             val cityDto = CityDTO("1", "Zagreb", "1", emptyList())
 
-            val city = cityDto.toDAO(
-                Country("1", "Croatia", emptyList()), emptyList()
-            )
+            val city =
+                cityDto.toDAO(
+                    Country("1", "Croatia", emptyList()),
+                    emptyList(),
+                )
 
             city.id shouldBe "1"
             city.name shouldBe "Zagreb"

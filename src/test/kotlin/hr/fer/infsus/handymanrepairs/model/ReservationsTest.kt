@@ -19,70 +19,71 @@ class ReservationsTest : FunSpec({
 
     context("dao to dto") {
         test("should convert dao to dto") {
-            val dao = Reservation(
-                "1",
-                Customer(
+            val dao =
+                Reservation(
                     "1",
-                    "John",
-                    "Doe",
-                    "email",
-                    "password",
-                    CustomerType.CUSTOMER,
-                    1,
-                    false,
-                    null,
-                    emptyList(),
-                    emptyList(),
-                ),
-                Status.PENDING,
-                Schedule(
-                    "1",
-                    Handyman(
+                    Customer(
                         "1",
                         "John",
                         "Doe",
                         "email",
                         "password",
-                        CustomerType.HANDYMAN,
-                        2.0,
+                        CustomerType.CUSTOMER,
+                        1,
                         false,
                         null,
                         emptyList(),
                         emptyList(),
-                        null,
                     ),
-                    emptyList(),
-                ),
-                Service(
-                    "1",
-                    "Service",
-                    "description",
-                    10,
-                    10,
-                    Category(
+                    Status.PENDING,
+                    Schedule(
                         "1",
-                        "Category",
+                        Handyman(
+                            "1",
+                            "John",
+                            "Doe",
+                            "email",
+                            "password",
+                            CustomerType.HANDYMAN,
+                            2.0,
+                            false,
+                            null,
+                            emptyList(),
+                            emptyList(),
+                            null,
+                        ),
+                        emptyList(),
+                    ),
+                    Service(
+                        "1",
+                        "Service",
                         "description",
-                        emptyList(),
+                        10,
+                        10,
+                        Category(
+                            "1",
+                            "Category",
+                            "description",
+                            emptyList(),
+                        ),
+                        Handyman(
+                            "1",
+                            "John",
+                            "Doe",
+                            "email",
+                            "password",
+                            CustomerType.HANDYMAN,
+                            2.0,
+                            false,
+                            null,
+                            emptyList(),
+                            emptyList(),
+                            null,
+                        ),
+                        mutableListOf(),
                     ),
-                    Handyman(
-                        "1",
-                        "John",
-                        "Doe",
-                        "email",
-                        "password",
-                        CustomerType.HANDYMAN,
-                        2.0,
-                        false,
-                        null,
-                        emptyList(),
-                        emptyList(),
-                        null,
-                    ),
-                    mutableListOf(),
-                ),
-                OffsetDateTime.parse("2021-01-01T00:00:00Z"),
-            )
+                    OffsetDateTime.parse("2021-01-01T00:00:00Z"),
+                )
 
             val dto = dao.toDTO()
 
@@ -97,76 +98,78 @@ class ReservationsTest : FunSpec({
 
     context("dto to dao") {
         test("should convert dto to dao") {
-            val dto = ReservationDTO(
-                "1",
-                Status.PENDING,
-                "1",
-                "1",
-                "1",
-                "2021-01-01T00:00:00Z",
-            )
+            val dto =
+                ReservationDTO(
+                    "1",
+                    Status.PENDING,
+                    "1",
+                    "1",
+                    "1",
+                    "2021-01-01T00:00:00Z",
+                )
 
-            val dao = dto.toDAO(
-                Schedule(
-                    "1",
-                    Handyman(
+            val dao =
+                dto.toDAO(
+                    Schedule(
                         "1",
-                        "John",
-                        "Doe",
-                        "email",
-                        "password",
-                        CustomerType.HANDYMAN,
-                        2.0,
-                        false,
-                        null,
+                        Handyman(
+                            "1",
+                            "John",
+                            "Doe",
+                            "email",
+                            "password",
+                            CustomerType.HANDYMAN,
+                            2.0,
+                            false,
+                            null,
+                            emptyList(),
+                            emptyList(),
+                            null,
+                        ),
                         emptyList(),
-                        emptyList(),
-                        null,
                     ),
-                    emptyList(),
-                ),
-                Service(
-                    "1",
-                    "Service",
-                    "description",
-                    10,
-                    10,
-                    Category(
+                    Service(
                         "1",
-                        "Category",
+                        "Service",
                         "description",
-                        emptyList(),
+                        10,
+                        10,
+                        Category(
+                            "1",
+                            "Category",
+                            "description",
+                            emptyList(),
+                        ),
+                        Handyman(
+                            "1",
+                            "John",
+                            "Doe",
+                            "email",
+                            "password",
+                            CustomerType.HANDYMAN,
+                            2.0,
+                            false,
+                            null,
+                            emptyList(),
+                            emptyList(),
+                            null,
+                        ),
+                        mutableListOf(),
                     ),
-                    Handyman(
+                    Customer(
                         "1",
                         "John",
                         "Doe",
                         "email",
                         "password",
-                        CustomerType.HANDYMAN,
-                        2.0,
+                        CustomerType.CUSTOMER,
+                        1,
                         false,
                         null,
                         emptyList(),
                         emptyList(),
-                        null,
                     ),
-                    mutableListOf(),
-                ),
-                Customer(
-                    "1",
-                    "John",
-                    "Doe",
-                    "email",
-                    "password",
-                    CustomerType.CUSTOMER,
-                    1,
-                    false,
-                    null,
-                    emptyList(),
-                    emptyList(),
-                ),
-            )
+                )
 
             dao.id shouldBe "1"
             dao.status shouldBe Status.PENDING

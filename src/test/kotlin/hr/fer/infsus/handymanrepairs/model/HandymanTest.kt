@@ -12,20 +12,21 @@ class HandymanTest : FunSpec({
 
     context("dao to dto") {
         test("should convert dao to dto") {
-            val handyman = Handyman(
-                "1",
-                "John",
-                "Doe",
-                "email",
-                "password",
-                CustomerType.HANDYMAN,
-                2.0,
-                false,
-                null,
-                emptyList(),
-                emptyList(),
-                null,
-            )
+            val handyman =
+                Handyman(
+                    "1",
+                    "John",
+                    "Doe",
+                    "email",
+                    "password",
+                    CustomerType.HANDYMAN,
+                    2.0,
+                    false,
+                    null,
+                    emptyList(),
+                    emptyList(),
+                    null,
+                )
 
             val handymanDto = handyman.toDTO()
 
@@ -46,20 +47,21 @@ class HandymanTest : FunSpec({
 
     context("dto to dao") {
         test("should convert dto to dao") {
-            val handymanDto = HandymanDTO(
-                "1",
-                "John",
-                "Doe",
-                "email",
-                CustomerType.HANDYMAN.toString(),
-                "password",
-                2.0,
-                false,
-                null,
-                emptyList(),
-                emptyList(),
-                null,
-            )
+            val handymanDto =
+                HandymanDTO(
+                    "1",
+                    "John",
+                    "Doe",
+                    "email",
+                    CustomerType.HANDYMAN.toString(),
+                    "password",
+                    2.0,
+                    false,
+                    null,
+                    emptyList(),
+                    emptyList(),
+                    null,
+                )
 
             val handyman = handymanDto.toDAO()
 

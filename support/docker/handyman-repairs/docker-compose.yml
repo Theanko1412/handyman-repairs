@@ -10,3 +10,16 @@ services:
       POSTGRES_DB: handyman-repairs
     ports:
       - "5555:5432"
+
+  handyman-repairs:
+    build:
+      context: ../../../
+      dockerfile: ./support/docker/handyman-repairs/Dockerfile
+    image: handyman-repairs:latest
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/handyman-repairs
+    depends_on:
+      - postgres

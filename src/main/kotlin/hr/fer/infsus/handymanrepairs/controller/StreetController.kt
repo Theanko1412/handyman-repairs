@@ -16,12 +16,12 @@ class StreetController(
     private val streetService: IStreetService,
 ) {
     @GetMapping
-    fun getAllCountries(): List<StreetDTO> {
+    fun getAllStreets(): List<StreetDTO> {
         return streetService.getAllStreets().map(Street::toDTO)
     }
 
     @GetMapping("/{id}")
-    fun getCountryById(
+    fun getStreetById(
         @PathVariable id: String,
     ): StreetDTO {
         return streetService.getStreetById(id)?.toDTO() ?: throw EntityNotFoundException("Street with id $id not found")

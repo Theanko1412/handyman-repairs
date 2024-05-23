@@ -14,34 +14,35 @@ class ServiceTest : FunSpec({
 
     context("dao to dto") {
         test("should convert dao to dto") {
-            val dao = Service(
-                "1",
-                "Service",
-                "description",
-                10,
-                10,
-                Category(
+            val dao =
+                Service(
                     "1",
-                    "Category",
+                    "Service",
                     "description",
-                    emptyList(),
-                ),
-                Handyman(
-                    "1",
-                    "John",
-                    "Doe",
-                    "email",
-                    "password",
-                    CustomerType.HANDYMAN,
-                    2.0,
-                    false,
-                    null,
-                    emptyList(),
-                    emptyList(),
-                    null,
-                ),
-                mutableListOf(),
-            )
+                    10,
+                    10,
+                    Category(
+                        "1",
+                        "Category",
+                        "description",
+                        emptyList(),
+                    ),
+                    Handyman(
+                        "1",
+                        "John",
+                        "Doe",
+                        "email",
+                        "password",
+                        CustomerType.HANDYMAN,
+                        2.0,
+                        false,
+                        null,
+                        emptyList(),
+                        emptyList(),
+                        null,
+                    ),
+                    mutableListOf(),
+                )
 
             val dto = dao.toDTO()
 
@@ -58,40 +59,42 @@ class ServiceTest : FunSpec({
 
     context("dto to dao") {
         test("should convert dto to dao") {
-            val dto = ServiceDTO(
-                "1",
-                "Service",
-                "description",
-                10,
-                10,
-                "1",
-                "1",
-                mutableListOf(),
-            )
-
-            val dao = dto.toDAO(
-                Category(
+            val dto =
+                ServiceDTO(
                     "1",
-                    "Category",
+                    "Service",
                     "description",
-                    emptyList(),
-                ),
-                Handyman(
+                    10,
+                    10,
                     "1",
-                    "John",
-                    "Doe",
-                    "email",
-                    "password",
-                    CustomerType.HANDYMAN,
-                    2.0,
-                    false,
-                    null,
+                    "1",
+                    mutableListOf(),
+                )
+
+            val dao =
+                dto.toDAO(
+                    Category(
+                        "1",
+                        "Category",
+                        "description",
+                        emptyList(),
+                    ),
+                    Handyman(
+                        "1",
+                        "John",
+                        "Doe",
+                        "email",
+                        "password",
+                        CustomerType.HANDYMAN,
+                        2.0,
+                        false,
+                        null,
+                        emptyList(),
+                        emptyList(),
+                        null,
+                    ),
                     emptyList(),
-                    emptyList(),
-                    null,
-                ),
-                emptyList(),
-            )
+                )
 
             dao.id shouldBe dto.id
             dao.name shouldBe dto.name

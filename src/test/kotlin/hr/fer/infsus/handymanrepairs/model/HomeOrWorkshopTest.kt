@@ -14,26 +14,27 @@ class HomeOrWorkshopTest : FunSpec({
 
     context("dao to dto") {
         test("should convert dao to dto") {
-            val dao = HomeOrWorkshop(
-                "1",
-                "home",
-                Street(
+            val dao =
+                HomeOrWorkshop(
                     "1",
-                    "streetName",
-                    1,
-                    City(
+                    "home",
+                    Street(
                         "1",
-                        "cityName",
-                        Country(
+                        "streetName",
+                        1,
+                        City(
                             "1",
-                            "countryName",
+                            "cityName",
+                            Country(
+                                "1",
+                                "countryName",
+                                emptyList(),
+                            ),
                             emptyList(),
                         ),
                         emptyList(),
                     ),
-                    emptyList(),
                 )
-            )
 
             val dto = dao.toDTO()
 
@@ -45,30 +46,32 @@ class HomeOrWorkshopTest : FunSpec({
 
     context("dto to dao") {
         test("should convert dto to dao") {
-            val dto = HomeOrWorkshopDTO(
-                "1",
-                "home",
-                "1",
-            )
-
-            val dao = dto.toDAO(
-                Street(
+            val dto =
+                HomeOrWorkshopDTO(
                     "1",
-                    "streetName",
-                    1,
-                    City(
+                    "home",
+                    "1",
+                )
+
+            val dao =
+                dto.toDAO(
+                    Street(
                         "1",
-                        "cityName",
-                        Country(
+                        "streetName",
+                        1,
+                        City(
                             "1",
-                            "countryName",
+                            "cityName",
+                            Country(
+                                "1",
+                                "countryName",
+                                emptyList(),
+                            ),
                             emptyList(),
                         ),
                         emptyList(),
                     ),
-                    emptyList(),
                 )
-            )
 
             dao.id shouldBe "1"
             dao.name shouldBe "home"

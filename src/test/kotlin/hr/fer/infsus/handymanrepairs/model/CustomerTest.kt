@@ -12,19 +12,20 @@ class CustomerTest : FunSpec({
 
     context("dao to dto") {
         test("should convert dao to dto") {
-            val customer = Customer(
-                "1",
-                "John",
-                "Doe",
-                "email",
-                "password",
-                CustomerType.CUSTOMER,
-                1,
-                false,
-                null,
-                emptyList(),
-                emptyList(),
-            )
+            val customer =
+                Customer(
+                    "1",
+                    "John",
+                    "Doe",
+                    "email",
+                    "password",
+                    CustomerType.CUSTOMER,
+                    1,
+                    false,
+                    null,
+                    emptyList(),
+                    emptyList(),
+                )
 
             val customerDTO = customer.toDTO()
 
@@ -44,19 +45,20 @@ class CustomerTest : FunSpec({
 
     context("dto to dao") {
         test("should convert dto to dao") {
-            val customerDTO = CustomerDTO(
-                "1",
-                "John",
-                "Doe",
-                "email",
-                "password",
-                CustomerType.CUSTOMER.toString(),
-                1,
-                false,
-                null,
-                emptyList(),
-                emptyList(),
-            )
+            val customerDTO =
+                CustomerDTO(
+                    "1",
+                    "John",
+                    "Doe",
+                    "email",
+                    "password",
+                    CustomerType.CUSTOMER.toString(),
+                    1,
+                    false,
+                    null,
+                    emptyList(),
+                    emptyList(),
+                )
 
             val customer = customerDTO.toDAO()
 

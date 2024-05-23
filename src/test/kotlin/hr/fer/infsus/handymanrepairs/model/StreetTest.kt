@@ -13,22 +13,23 @@ class StreetTest : FunSpec({
 
     context("dao to dto") {
         test("should convert dao to dto") {
-            val dao = Street(
-                "1",
-                "Street1",
-                1,
-                City(
+            val dao =
+                Street(
                     "1",
-                    "City1",
-                    Country(
+                    "Street1",
+                    1,
+                    City(
                         "1",
-                        "Country1",
+                        "City1",
+                        Country(
+                            "1",
+                            "Country1",
+                            emptyList(),
+                        ),
                         emptyList(),
                     ),
                     emptyList(),
-                ),
-                emptyList(),
-            )
+                )
 
             val dto = dao.toDTO()
 
@@ -42,27 +43,29 @@ class StreetTest : FunSpec({
 
     context("dto to dao") {
         test("should convert dto to dao") {
-            val dto = StreetDTO(
-                "1",
-                "Street1",
-                1,
-                "1",
-                emptyList(),
-            )
-
-            val dao = dto.toDAO(
-                City(
+            val dto =
+                StreetDTO(
                     "1",
-                    "City1",
-                    Country(
+                    "Street1",
+                    1,
+                    "1",
+                    emptyList(),
+                )
+
+            val dao =
+                dto.toDAO(
+                    City(
                         "1",
-                        "Country1",
+                        "City1",
+                        Country(
+                            "1",
+                            "Country1",
+                            emptyList(),
+                        ),
                         emptyList(),
                     ),
                     emptyList(),
-                ),
-                emptyList()
-            )
+                )
 
             dao.id shouldBe dto.id
             dao.name shouldBe dto.name
