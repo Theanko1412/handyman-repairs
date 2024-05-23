@@ -42,3 +42,13 @@ Testing:
 
 
 Postman collection inside ```support/postman``` folder
+
+## Users
+
+### Handyman
+```email: adam.wilson@example.com```
+```password: password```
+
+### Customer
+```email: john.doe@example.com```
+```password: password```
