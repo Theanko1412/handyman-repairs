@@ -34,7 +34,7 @@ Running:
 
 Testing:
 ```bash
-./gradlew check
+./gradlew test
 ```
 
 
